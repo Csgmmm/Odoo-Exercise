@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercise</title>
+    <link href="style.css" rel="stylesheet" />
+    <style>
+      .spinner {
+        animation: spin 2s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <div class="card">
+        <div class="card-header">
+          <ul class="nav nav-tabs card-header-tabs" id="cardTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <a
+                class="nav-link active"
+                id="tab1-tab"
+                data-bs-toggle="tab"
+                href="#tab1"
+                role="tab"
+                aria-controls="tab1"
+                aria-selected="true"
+                >Tab 1</a
+              >
+            </li>
+            <li class="nav-item" role="presentation">
+              <a
+                class="nav-link"
+                id="tab2-tab"
+                data-bs-toggle="tab"
+                href="#tab2"
+                role="tab"
+                aria-controls="tab2"
+                aria-selected="false"
+                >Tab 2</a
+              >
+            </li>
+            <li class="nav-item" role="presentation">
+              <a
+                class="nav-link"
+                id="tab3-tab"
+                data-bs-toggle="tab"
+                href="#tab3"
+                role="tab"
+                aria-controls="tab3"
+                aria-selected="false"
+                >Tab 3</a
+              >
+            </li>
+            <li class="nav-item" role="presentation">
+              <a
+                class="nav-link disabled"
+                id="tab4-tab"
+                data-bs-toggle="tab"
+                href="#tab4"
+                role="tab"
+                aria-controls="tab4"
+                aria-selected="false"
+                >Disabled</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="card-body">
+          <div class="tab-content" id="cardTabContent">
+            <div
+              class="tab-pane fade show active"
+              id="tab1"
+              role="tabpanel"
+              aria-labelledby="tab1-tab"
+            >
+              <h5>Card Title</h5>
+              <h6>Card Subtitle</h6>
+              <div class="row">
+                <div class="col-md-6">
+                  <ul id="left-column">
+                    <li data-target="#image1" class="left-item">An item</li>
+                    <li data-target="#image2" class="left-item">
+                      A second item
+                    </li>
+                    <li data-target="#image3" class="left-item">
+                      A third item
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-md-6">
+                  <div id="image1" class="image-content">
+                    <div class="image-text">Pic-1</div>
+                  </div>
+                  <div id="image2" class="image-content" style="display: none">
+                    <div class="image-text">Pic-2</div>
+                  </div>
+                  <div id="image3" class="image-content" style="display: none">
+                    <div class="image-text">Pic-3</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="tab-pane fade"
+              id="tab2"
+              role="tabpanel"
+              aria-labelledby="tab2-tab"
+            >
+              <div class="loading-block">
+                <p>Loading...</p>
+                <svg class="semi-spinner" viewBox="0 0 50 50">
+                  <circle cx="25" cy="25" r="20"></circle>
+                </svg>
+              </div>
+            </div>
+
+            <div
+              class="tab-pane fade"
+              id="tab3"
+              role="tabpanel"
+              aria-labelledby="tab3-tab"
+            >
+              <div class="row">
+                <div class="col-md-5">
+                  <div id="image4" class="image-content">
+                    <div class="image-text">Pic-4</div>
+                  </div>
+                </div>
+
+                <div class="col-md-7">
+                  <h4>Card title</h4>
+                  <p class="one">
+                    This is a wider card with supporting text below as a natural
+                    lead-in to additional content. This content is a little bit
+                    longer.
+                  </p>
+                  <p class="two">Last updated 3 mins ago</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer">2 days ago</div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      const items = document.querySelectorAll(".left-item");
+      items.forEach((item) => {
+        item.addEventListener("click", function () {
+          const target = document.querySelector(
+            this.getAttribute("data-target")
+          );
+
+          document
+            .querySelectorAll(".image-content")
+            .forEach((img) => (img.style.display = "none"));
+
+          target.style.display = "block";
+
+          items.forEach((el) => el.classList.remove("active"));
+
+          this.classList.add("active");
+        });
+      });
+
+      const tab2Link = document.querySelector("#tab2-tab");
+      const tab2Content = document.querySelector("#tab2Content");
+      const loadingBlock = document.querySelector("#loadingBlock");
+
+      tab2Link.addEventListener("shown.bs.tab", function () {
+        loadingBlock.style.display = "block";
+        tab2Content.style.display = "none";
+
+        setTimeout(function () {
+          loadingBlock.style.display = "none";
+          tab2Content.style.display = "block";
+        }, 3000);
+      });
+    </script>
+  </body>
+</html>
